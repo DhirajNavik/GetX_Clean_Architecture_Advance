@@ -135,12 +135,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<TodoEntity> todos)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TodoInitial() when initial != null:
 return initial();case TodoLoading() when loading != null:
 return loading();case TodoLoaded() when loaded != null:
-return loaded(_that.todos);case TodoError() when error != null:
+return loaded();case TodoError() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -159,12 +159,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<TodoEntity> todos)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case TodoInitial():
 return initial();case TodoLoading():
 return loading();case TodoLoaded():
-return loaded(_that.todos);case TodoError():
+return loaded();case TodoError():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -182,12 +182,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<TodoEntity> todos)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case TodoInitial() when initial != null:
 return initial();case TodoLoading() when loading != null:
 return loading();case TodoLoaded() when loaded != null:
-return loaded(_that.todos);case TodoError() when error != null:
+return loaded();case TodoError() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -276,79 +276,39 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 
 
 class TodoLoaded with DiagnosticableTreeMixin implements TodoState {
-  const TodoLoaded( List<TodoEntity> todos): _todos = todos;
+  const TodoLoaded();
   
 
- final  List<TodoEntity> _todos;
- List<TodoEntity> get todos {
-  if (_todos is EqualUnmodifiableListView) return _todos;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_todos);
-}
 
 
-/// Create a copy of TodoState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$TodoLoadedCopyWith<TodoLoaded> get copyWith => _$TodoLoadedCopyWithImpl<TodoLoaded>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'TodoState.loaded'))
-    ..add(DiagnosticsProperty('todos', todos));
+    ;
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TodoLoaded&&const DeepCollectionEquality().equals(other._todos, _todos));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TodoLoaded);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_todos));
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'TodoState.loaded(todos: $todos)';
+  return 'TodoState.loaded()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class $TodoLoadedCopyWith<$Res> implements $TodoStateCopyWith<$Res> {
-  factory $TodoLoadedCopyWith(TodoLoaded value, $Res Function(TodoLoaded) _then) = _$TodoLoadedCopyWithImpl;
-@useResult
-$Res call({
- List<TodoEntity> todos
-});
 
 
-
-
-}
-/// @nodoc
-class _$TodoLoadedCopyWithImpl<$Res>
-    implements $TodoLoadedCopyWith<$Res> {
-  _$TodoLoadedCopyWithImpl(this._self, this._then);
-
-  final TodoLoaded _self;
-  final $Res Function(TodoLoaded) _then;
-
-/// Create a copy of TodoState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? todos = null,}) {
-  return _then(TodoLoaded(
-null == todos ? _self._todos : todos // ignore: cast_nullable_to_non_nullable
-as List<TodoEntity>,
-  ));
-}
-
-
-}
 
 /// @nodoc
 

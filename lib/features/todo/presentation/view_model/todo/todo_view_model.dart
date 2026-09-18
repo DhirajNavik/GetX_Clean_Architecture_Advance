@@ -12,6 +12,10 @@ part 'todo_view_model.freezed.dart';
 @injectable
 class TodoViewModel extends GetxController {
   final FetchTodosUseCase _todosUsecase;
+
+  final RxList<Rx<TodoEntity>> todoLists = <Rx<TodoEntity>>[].obs;
+  Rx<TodoEntity> getTodo(int index) => todoLists[index];
+
   final Rx<TodoState> _state = TodoState.initial().obs;
   TodoState get state => _state.value;
 
@@ -36,8 +40,17 @@ class TodoViewModel extends GetxController {
         emit(TodoState.error(failure.message));
       },
       (todos) {
-        emit(TodoState.loaded(todos));
+        todoLists.assignAll(todos.map((e) => e.obs).toList());
+        emit(const TodoState.loaded());
       },
+    );
+  }
+
+  void updateTodo(int id) {
+    final index = todoLists.indexWhere((t) => t.value.id == id);
+    if (index == -1) return;
+    todoLists[index].value = todoLists[index].value.copyWith(
+      isCompleted: !todoLists[index].value.isCompleted,
     );
   }
 }
