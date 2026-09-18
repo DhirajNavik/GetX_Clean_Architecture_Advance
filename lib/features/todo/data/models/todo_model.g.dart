@@ -12,10 +12,3 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
   title: json['title'] as String,
   isCompleted: json['completed'] as bool,
 );
-
-Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
-  'userId': instance.userId,
-  'id': instance.id,
-  'title': instance.title,
-  'completed': instance.isCompleted,
-};
