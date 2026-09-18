@@ -1,16 +1,18 @@
 // todo_view.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxtest/features/testing/presentation/view_model/test_view_model.dart';
+import 'package:getxtest/features/testing/presentation/view_model/todo_view_model.dart';
 import '../../../../config/injectable/injectable.dart';
 
-class TestView extends GetView<TestViewModel> {
-  TestView({super.key}) {
-    Get.put(serviceLocator<TestViewModel>());
+class TodosView extends GetView<TodoViewModel> {
+  TodosView({super.key}) {
+    print("First");
+    Get.put(serviceLocator<TodoViewModel>());
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Second");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todos'),
@@ -22,7 +24,7 @@ class TestView extends GetView<TestViewModel> {
         ],
       ),
       body: Obx(() {
-        return controller.state.value.when(
+        return controller.state.when(
           initial: () => const SizedBox.shrink(),
           loading: () => const Center(child: CircularProgressIndicator()),
           loaded: (todos) {

@@ -6,16 +6,20 @@ import 'package:getxtest/features/testing/domain/usecases/fetch_todos_usecase.da
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'test_state.dart';
-part 'test_view_model.freezed.dart';
+part 'todo_state.dart';
+part 'todo_view_model.freezed.dart';
 
 @injectable
-class TestViewModel extends GetxController {
+class TodoViewModel extends GetxController {
   final FetchTodosUsecase _todosUsecase;
+  late final Rx<TodoState> _state = TodoState.initial().obs;
+  TodoState get state => _state.value;
 
-  TestViewModel(this._todosUsecase);
+  TodoViewModel(this._todosUsecase);
 
-  final Rx<TestState> state = TestState.initial().obs;
+  void emit(TodoState update) {
+    _state.value = update.obs.value;
+  }
 
   @override
   void onInit() {
@@ -24,17 +28,17 @@ class TestViewModel extends GetxController {
   }
 
   Future<void> fetchTodos() async {
-    state.value = const TestState.loading();
+    emit(const TodoState.loading());
 
     final result = await _todosUsecase(NoParams());
 
     result.fold(
       (failure) {
         debugPrint(failure.message);
-        state.value = TestState.error(failure.message);
+        emit(TodoState.error(failure.message));
       },
       (todos) {
-        state.value = TestState.loaded(todos);
+        emit(TodoState.loaded(todos));
       },
     );
   }

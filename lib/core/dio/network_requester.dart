@@ -8,7 +8,6 @@ import 'log_interceptor.dart';
 @singleton
 class NetworkRequester {
   final Dio _dio;
-  final cancelToken = CancelToken();
   NetworkRequester() : _dio = Dio() {
     _dio.options = BaseOptions(
       baseUrl: AppUrls.baseUrl,
@@ -29,6 +28,7 @@ class NetworkRequester {
     required String path,
     Map<String, dynamic>? query,
     dynamic data,
+    CancelToken? cancelToken,
   }) async {
     try {
       final response = await _dio.request(
@@ -60,13 +60,13 @@ class NetworkRequester {
     Map<String, dynamic>? query,
     dynamic data,
   }) => request(method: 'PUT', path: path, query: query, data: data);
- 
+
   Future<dynamic> patch(
     String path, {
     Map<String, dynamic>? query,
     dynamic data,
   }) => request(method: 'PATCH', path: path, query: query, data: data);
- 
+
   Future<dynamic> delete(String path, {Map<String, dynamic>? query}) =>
       request(method: 'DELETE', path: path, query: query);
 }

@@ -1,6 +1,6 @@
 import 'package:getxtest/features/testing/data/models/todo_model.dart';
 
-abstract class TestingDatasource {
+abstract class TodoDatasource {
   Future<List<TodoModel>> getAllTodos();
-  Future<List<TodoModel>> getTodos(int? params);
+  Future<TodoModel> getTodoById(int? params);
 }
