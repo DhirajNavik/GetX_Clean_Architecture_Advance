@@ -15,16 +15,20 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../../core/dio/network_requester.dart' as _i1066;
-import '../../features/testing/data/datasource/todo_datasource.dart' as _i814;
-import '../../features/testing/data/datasource/todo_remote_impl.dart' as _i887;
-import '../../features/testing/data/repositories/todo_repository_impl.dart'
+import '../../features/todo/data/datasource/todo_datasource.dart' as _i814;
+import '../../features/todo/data/datasource/todo_remote_impl.dart' as _i887;
+import '../../features/todo/data/repositories/todo_repository_impl.dart'
     as _i742;
-import '../../features/testing/domain/repositories/todo_repository.dart'
+import '../../features/todo/domain/repositories/todo_repository.dart'
     as _i185;
-import '../../features/testing/domain/usecases/fetch_todos_usecase.dart'
+import '../../features/todo/domain/usecases/fetch_todo_by_id_usecase.dart'
+    as _i933;
+import '../../features/todo/domain/usecases/fetch_todos_usecase.dart'
     as _i999;
-import '../../features/testing/presentation/view_model/todo_view_model.dart'
-    as _i705;
+import '../../features/todo/presentation/view_model/todo/todo_view_model.dart'
+    as _i640;
+import '../../features/todo/presentation/view_model/todo_details/todo_details_view_model.dart'
+    as _i939;
 import '../routes/app_route.config.dart' as _i218;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -43,11 +47,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i185.TodoRepository>(
       () => _i742.TodoRepositoryImpl(gh<_i814.TodoDatasource>()),
     );
-    gh.lazySingleton<_i999.FetchTodosUsecase>(
-      () => _i999.FetchTodosUsecase(gh<_i185.TodoRepository>()),
+    gh.factory<_i933.FetchTodoByIdUseCase>(
+      () => _i933.FetchTodoByIdUseCase(gh<_i185.TodoRepository>()),
     );
-    gh.factory<_i705.TodoViewModel>(
-      () => _i705.TodoViewModel(gh<_i999.FetchTodosUsecase>()),
+    gh.factory<_i999.FetchTodosUseCase>(
+      () => _i999.FetchTodosUseCase(gh<_i185.TodoRepository>()),
+    );
+    gh.factory<_i939.TodoDetailsViewModel>(
+      () => _i939.TodoDetailsViewModel(gh<_i933.FetchTodoByIdUseCase>()),
+    );
+    gh.factory<_i640.TodoViewModel>(
+      () => _i640.TodoViewModel(gh<_i999.FetchTodosUseCase>()),
     );
     return this;
   }

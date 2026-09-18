@@ -1,18 +1,13 @@
-// todo_view.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxtest/features/testing/presentation/view_model/todo_view_model.dart';
-import '../../../../config/injectable/injectable.dart';
+import 'package:getxtest/config/routes/routes_path.dart';
+import 'package:getxtest/features/todo/presentation/view_model/todo/todo_view_model.dart';
 
-class TodosView extends GetView<TodoViewModel> {
-  TodosView({super.key}) {
-    print("First");
-    Get.put(serviceLocator<TodoViewModel>());
-  }
+class TodoView extends GetView<TodoViewModel> {
+  const TodoView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print("Second");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todos'),
@@ -35,10 +30,16 @@ class TodosView extends GetView<TodoViewModel> {
               itemCount: todos.length,
               itemBuilder: (context, index) {
                 final todo = todos[index];
-                return CheckboxListTile(
-                  title: Text(todo.title),
-                  value: todo.isCompleted,
-                  onChanged: null, // read-only for now
+                return InkWell(
+                  onTap: () => Get.toNamed(
+                    RoutesPath.todoDetailsPage.path,
+                    arguments: todo.id,
+                  ),
+                  child: CheckboxListTile(
+                    title: Text(todo.title),
+                    value: todo.isCompleted,
+                    onChanged: null, // read-only for now
+                  ),
                 );
               },
             );

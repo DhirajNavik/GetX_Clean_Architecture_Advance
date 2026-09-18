@@ -1,4 +1,4 @@
-import 'package:getxtest/features/testing/domain/entities/todo_entity.dart';
+import 'package:getxtest/features/todo/domain/entities/todo_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'todo_model.g.dart';
 

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: RoutesPath.testing.path,
+      initialRoute: RoutesPath.todoPage.path,
       getPages: serviceLocator<List<GetPage>>(),
       debugShowCheckedModeBanner: false,
     );
