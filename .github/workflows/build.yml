@@ -23,7 +23,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '1.0.0'
+          flutter-version: '3.44.8'
           channel: 'stable'
       - name: Flutter Version
         run: flutter --version
@@ -38,6 +38,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
-          name: todo-debug
-          path: build/app/outputs/flutter-apk/todo-debug.apk
+          name: app-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 7
