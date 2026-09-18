@@ -41,4 +41,3 @@ jobs:
           name: todo-debug
           path: build/app/outputs/flutter-apk/todo-debug.apk
           retention-days: 7
-  
