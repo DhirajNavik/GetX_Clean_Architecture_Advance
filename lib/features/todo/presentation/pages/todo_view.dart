@@ -27,7 +27,7 @@ class TodoView extends GetView<TodoViewModel> {
               shrinkWrap: true,
               itemCount: value.todoLists.length,
               itemBuilder: (context, index) {
-                return TodoListItem(index: index);
+                return TodoListItem(entity: value.todoLists[index]);
               },
             );
           },
