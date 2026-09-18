@@ -1,6 +1,7 @@
 {
     "yaml.disableSchemaDetection": [],
     "yaml.schemas": {
-        "https://www.schemastore.org/pubspec.json": "file:///d%3A/tasks/getxtest/pubspec.yaml"
+        "https://www.schemastore.org/pubspec.json": "file:///d%3A/tasks/getxtest/pubspec.yaml",
+        "https://www.schemastore.org/github-workflow.json": "file:///d%3A/tasks/getxtest/.github/workflows/main.yml"
     }
 }
